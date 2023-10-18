@@ -19,7 +19,10 @@ const teamMembers = []
 const appMenu = () => {
 
     function buildTeam() {
-
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR)
+        }
+        fs.writeFileSync(outputPath, render(teamMembers), 'utf-8');
     }
 
     function addIntern() {
@@ -48,7 +51,7 @@ const appMenu = () => {
             const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
             teamMembers.push(intern);
             idList.push(answers.internId);
-           // console.log(intern);
+            // console.log(intern);
             createTeam();
         })
     }
@@ -79,7 +82,7 @@ const appMenu = () => {
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamMembers.push(engineer);
             idList.push(answers.engineerId);
-           // console.log(engineer);
+            // console.log(engineer);
             createTeam();
         })
     }
@@ -109,7 +112,7 @@ const appMenu = () => {
     }
 
     function createManager() {
-        console.log("Please build tam");
+        console.log("Please build team");
         inquirer.prompt([
             {
                 type: "input",
