@@ -27,7 +27,7 @@ The information provided by the user is used to create instances of the correspo
 
 The buildTeam function creates the output directory and writes the generated HTML file.
 
-Important Notes
+## Important Notes
 Make sure to provide valid information for each team member.
 
 The generated HTML file will be located in the output folder.
