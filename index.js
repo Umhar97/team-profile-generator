@@ -23,7 +23,34 @@ const appMenu = () => {
     }
 
     function addIntern() {
-
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What is your intern name?"
+            },
+            {
+                type: "input",
+                name: "internId",
+                message: "What is your intern id?"
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What is your intern email?"
+            },
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What is your intern school?"
+            }
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+            teamMembers.push(intern);
+            idList.push(answers.internId);
+           // console.log(intern);
+            createTeam();
+        })
     }
 
     function addEngineer() {
@@ -48,11 +75,11 @@ const appMenu = () => {
                 name: "engineerGithub",
                 message: "What is your engineer Github?"
             }
-        ]).then(answers =>{
+        ]).then(answers => {
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamMembers.push(engineer);
             idList.push(answers.engineerId);
-            console.log(engineer);
+           // console.log(engineer);
             createTeam();
         })
     }
@@ -130,7 +157,7 @@ const appMenu = () => {
             },
         ]).then(answers => {
             const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
-            console.log(manager);
+            //console.log(manager);
             teamMembers.push(manager);
             idList.push(answers.managersId);
             createTeam();
