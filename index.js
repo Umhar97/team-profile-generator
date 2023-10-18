@@ -19,7 +19,7 @@ const teamMembers = []
 const appMenu = () => {
 
     function buildTeam() {
-        
+
     }
 
     function addIntern() {
@@ -27,11 +27,38 @@ const appMenu = () => {
     }
 
     function addEngineer() {
-
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engineerName",
+                message: "What is your engineer name?"
+            },
+            {
+                type: "input",
+                name: "engineerId",
+                message: "What is your engineer id?"
+            },
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is your engineer email?"
+            },
+            {
+                type: "input",
+                name: "engineerGithub",
+                message: "What is your engineer Github?"
+            }
+        ]).then(answers =>{
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            teamMembers.push(engineer);
+            idList.push(answers.engineerId);
+            console.log(engineer);
+            createTeam();
+        })
     }
 
     function createTeam() {
-        inquirer.createPromptModule([
+        inquirer.prompt([
             {
                 type: "list",
                 name: "memberChoice",
@@ -44,69 +71,73 @@ const appMenu = () => {
             }
         ]).then(userChoice => {
             if (userChoice.memberChoice === "Engineer") {
+                addEngineer();
             } else if (userChoice.memberChoice === "Intern") {
+                addIntern();
             } else {
+                buildTeam();
 
             }
         })
-}
-    
-function createManager() {
-    console.log("Please build tam");
-    inquirer.createPromptModule([
-        {
-            type: "input",
-            name: 'managerName',
-            message: "What is the team manager's name?",
-            validate: answer => {
-                if (answer !== "") {
-                    return true
-                }
-                return "Please enter manager's name."
-            }
-        },
-        {
-            type: "input",
-            name: "managerId",
-            message: "What is the manager's id?",
-            validate: answer => {
-                if (answer !== "") {
-                    return true
-                }
-                return "Please enter manager's id."
-            }
-        },
-        {
-            type: "input",
-            name: "managerEmail",
-            message: "What is the manager's email?",
-            validate: answer => {
-                if (answer !== "") {
-                    return true
-                }
-                return "Please enter manager's email."
-            }
-        },
-        {
-            type: "input",
-            name: "managerOfficeNumber",
-            message: "What is the manager's office number?",
-            validate: answer => {
-                if (answer !== "") {
-                    return true
-                }
-                return "Please enter manager's office number."
-            }
-        },
-    ]).then(answers => {
-        const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
-        teamMembers.push(manager);
-        idList.push(answers.managersId);
-        createTeam();
-    })
-}
+    }
 
-createManager();
+    function createManager() {
+        console.log("Please build tam");
+        inquirer.prompt([
+            {
+                type: "input",
+                name: 'managerName',
+                message: "What is the team manager's name?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true
+                    }
+                    return "Please enter manager's name."
+                }
+            },
+            {
+                type: "input",
+                name: "managerId",
+                message: "What is the manager's id?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true
+                    }
+                    return "Please enter manager's id."
+                }
+            },
+            {
+                type: "input",
+                name: "managerEmail",
+                message: "What is the manager's email?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true
+                    }
+                    return "Please enter manager's email."
+                }
+            },
+            {
+                type: "input",
+                name: "managerOfficeNumber",
+                message: "What is the manager's office number?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true
+                    }
+                    return "Please enter manager's office number."
+                }
+            },
+        ]).then(answers => {
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+            console.log(manager);
+            teamMembers.push(manager);
+            idList.push(answers.managersId);
+            createTeam();
+        })
+    }
+
+    createManager();
 }
 
 appMenu();
